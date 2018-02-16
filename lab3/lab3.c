@@ -2,7 +2,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <pthread.h>
-
 struct thread_info {
    int maxitr;
    double exec_time;
@@ -30,7 +29,7 @@ void *func(void *arg)
    for (i = 0; i < maxitr ; i++) {
          a = b*b + b*c + c*c;
    }
-         
+
    clock_gettime(CLOCK_REALTIME, &time_2);
 
    exec_time = (time_2.tv_sec - time_1.tv_sec);
@@ -39,7 +38,7 @@ void *func(void *arg)
    info->exec_time = exec_time;
 
    pthread_exit(NULL);
-   
+
 }
 
 int main(void)

@@ -8,7 +8,7 @@
 
 struct thread_info {
 	int maxitr;
-	int operation; 
+	int operation;
 	double exec_time;
 };
 
@@ -23,7 +23,7 @@ void *func(void *arg) {
 
 	info = (thread_info_t *)arg;
  	maxitr = info->maxitr;
-	operation = info->operation; 
+	operation = info->operation;
  	b = 2.3; c = 4.5;
 
 	exec_time = 0.0;
@@ -32,27 +32,27 @@ void *func(void *arg) {
 		case 1:
 			clock_gettime(CLOCK_REALTIME, &time_1);
  			for (i = 0; i < maxitr ; i++) {
-				a = b + c; 
+				a = b + c;
 			}
-		break; 
+		break;
 		case 2:
 			clock_gettime(CLOCK_REALTIME, &time_1);
  			for (i = 0; i < maxitr ; i++) {
-				a = b - c; 
+				a = b - c;
 			}
-		break; 
-		case 3: 
+		break;
+		case 3:
 			clock_gettime(CLOCK_REALTIME, &time_1);
  			for (i = 0; i < maxitr ; i++) {
-				a = b * c; 
+				a = b * c;
 			}
-		break; 
-		case 4: 
+		break;
+		case 4:
 			clock_gettime(CLOCK_REALTIME, &time_1);
  			for (i = 0; i < maxitr ; i++) {
-				a = b / c; 
+				a = b / c;
 			}
-		break; 
+		break;
 	}
 	clock_gettime(CLOCK_REALTIME, &time_2);
 
@@ -67,7 +67,7 @@ int main(void) {
 
 	pthread_t threads[4];
 	thread_info_t infos[4];
-	
+
  	double maxitr = 5.0e8;
 
 	int i;
@@ -78,8 +78,8 @@ int main(void) {
  		pthread_join(threads[i], NULL);
  		printf("Operation %d = %lf sec\n", infos[i].operation, infos[i].exec_time);
 	}
-	
 
-  
+
+
  	pthread_exit(NULL);
 }
