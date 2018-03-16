@@ -17,7 +17,6 @@ void *func(void *arg)
 
   sleep(1);   /* sleep 1 sec to allow all threads to start */
 
-  pthread_mutex_lock( &index_mutex )
   while (1) {
     tmp_index = string_index;
 
@@ -34,13 +33,11 @@ void *func(void *arg)
       string_index = 0;   /* wrap around */
     }
   }
-  pthread_mutex_unlock( &index_mutex )
 }
 
 
 int main(void)
 {
-  pthread_mutex_t index_mutex = PTHREAD_MUTEX_INITIALIZER;
   pthread_t threads[NTHREADS];
   int k;
 
