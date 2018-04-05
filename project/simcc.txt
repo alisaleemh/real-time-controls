@@ -1,0 +1,28 @@
+The following installation instructions assume the use of zsh.
+
+
+1. Go to your home directory, and create a directory called "bin" (if it
+   does not already exist), i.e.
+	
+	cd
+	mkdir bin
+
+2. Go into the bin directory by entering the command:
+
+	cd ~/bin
+
+3. Open your web browser and download the script file "simcc.script" from the course's
+   web site to the ~/bin directory.
+
+4. Rename the script file "simcc.script" to "simcc" and make it executable by entering the command:
+   
+        mv simcc.script simcc
+	chmod u+x simcc
+
+5. Add the "bin" directory to your search path, i.e.
+
+	export PATH=~/bin:$PATH
+
+6. You can now compile you programs using simcc, e.g.
+
+	simcc projectA.c
