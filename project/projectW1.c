@@ -46,9 +46,11 @@ void *Control(void *arg)    {
 }
 
 int main(void)  {
-    char user_response,input_type[20];
+    char user_response,input_type;
     step_mag = deg;
+    int f;
     int j = 0.0, jmax = 0.0;
+    int sample_freq;
 
     while(1)    {
 
