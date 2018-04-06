@@ -61,7 +61,7 @@ int main(void)  {
     char user_response, input_type[20];
     step_mag = deg;
     int j = 0.0, jmax = 0.0;
-    
+    int f = 1;
     N = 20;
     Ti = 0.0001785;
     Td = 0.000044625;
@@ -75,14 +75,16 @@ int main(void)  {
             case 'u':
                 printf("input: Step or Square \n");
                 scanf("%c",&input_type);
+                while(f) {
                 if (strcmp("step", input_type) == 0) {
                     printf("Enter the magnitude of the step response \n");
                     scanf("%lf",&step_mag);
                     for(i = 0; i < MAXS; i++) {
                         ref[i] = (step_mag * (M_PI / 180.0));
                     }
-                    
-                }
+                  f=0;
+                  break;  
+                }}
                 
                 if (strcmp("suqare", input_type) == 0) {
                     printf("Enter the magnitude of the square response \n");
