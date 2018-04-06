@@ -28,7 +28,7 @@ float ref[MAXS] = {[0 ... (MAXS - 1)] = (deg * (M_PI / 180.0))};
 
 float Kp = 1.0, run_time = 3.0, Fs = 200.0;
 float N, Ti, Td;
-
+float P, I, D;
 float  sample_freq, step_mag, sq_mag, sq_frequency, sq_duty_cycle;
 
 int no_of_samples, i;
@@ -36,6 +36,7 @@ int no_of_samples, i;
 void *Control(void *arg)    {
     int k = 0;
     no_of_samples = (int)(run_time * Fs);
+    float T = 1.0/Fs;
     
     float P = 0.0, I = 0.0 , D = 0.0;
     
@@ -46,7 +47,7 @@ void *Control(void *arg)    {
         ek = ref[k] - motor_position;
         I = I + Kp/Ti + lek;
         P = Kp * ek;
-        D = {(Td/(N*T + Td)) * D } +{ ((Kp*Td*N) / (N*T+Td)) * (ek - lek) };
+        D = ((Td/(N*T + Td)) * D ) +( ((Kp*Td*N) / (N*T+Td)) * (ek - lek) );
         float uk = P + I + D;
         DtoA(VtoD(uk));
         theta[k] = motor_position;
