@@ -102,7 +102,8 @@ int main(void *args) {
             plot(ref, theta, Fs, (int) (run_time * Fs), PS, "Response", "Time [s]", "Magnitude [rad]");
             break;
             case 'q':
-            exit = 1;
+            exitProgram = 1;
+            sleep(5000);
             exit(0);
             break;
             case 'H':
