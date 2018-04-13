@@ -20,8 +20,8 @@ float theta[MAXS];
 float ref[MAXS] = {[0 ... (MAXS - 1)] = (ROTATION_D * (M_PI / 180.0))};
 
 float Kp = 25.8;
-float Ti = 0.025;
-float Td = 0.00625;
+float Ti = 0.0227;
+float Td = 0.005682;
 float Tt = 0.01;
 float N = 20;
 
