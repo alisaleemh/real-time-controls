@@ -6,7 +6,7 @@
 #include <semaphore.h>
 
 #define MAXS 5000
-#define MOTOR_NUM 5
+#define MOTOR_NUM 4
 #define ROTATION_D 55.0    //Degrees
 
 #define ERR_INPUT 0
