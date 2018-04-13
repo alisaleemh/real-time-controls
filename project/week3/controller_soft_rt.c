@@ -31,7 +31,8 @@ float run_time = 3.0;
 char command;
 
 pthread_t control_thread;
-int data_avail;
+//int data_avail;
+sem_t data_avail;
 
 int main(void *args) {
 
@@ -53,19 +54,21 @@ int main(void *args) {
         printError(ERR_INPUT);
         break;
       case 'r':
-        if((data_avail = open("/dev/rtf0", O_WRONLY)) < 0) {
-          printf("Error: cannot open /dev/rtf0.\n");
-          exit(1);
-        }
-        if(rtf_sem_init(data_avail, 0) != 0) {
-          printf("Error: cannot init RT FIFO semaphore.\n");
-        }
+        sem_init(&data_avail,0,0);
+	//if((data_avail = open("/dev/rtf0", O_WRONLY)) < 0) {
+        //  printf("Error: cannot open /dev/rtf0.\n");
+        //  exit(1);
+        //}
+        //if(rtf_sem_init(data_avail, 0) != 0) {
+        //  printf("Error: cannot init RT FIFO semaphore.\n");
+        //}
         Initialize(DLAB_HARDWARE, Fs, MOTOR_NUM);
         pthread_create(&control_thread, NULL, &Control, NULL);
         pthread_join(control_thread, NULL);
         Terminate();
-        rtf_sem_destroy(data_avail);
-        close(data_avail);
+	sem_destroy(&data_avail);
+       // rtf_sem_destroy(data_avail);
+       // close(data_avail);
         break;
       case 'p':
         printf("Enter new Kp: ");
@@ -143,7 +146,8 @@ void *Control(void *args) {
   float anti_windup = 0;
   t_samp = 1 / Fs;
   for (k = 0; k < ((int) (run_time * Fs)); k++) {
-    rtf_sem_wait(data_avail);
+    //rtf_sem_wait(data_avail);
+    sem_wait(&data_avail);
     motor_pos = EtoR(ReadEncoder());
     error = ref[k] - motor_pos;
     p = Kp * error;
