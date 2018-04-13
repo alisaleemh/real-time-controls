@@ -140,13 +140,12 @@ void *Control(void *args) {
     motor_pos = EtoR(ReadEncoder());
     error = ref[k] - motor_pos;
     p = Kp * error;
-    i = i_past + (Kp / Ti) * error_past ;
-    d = ((Td / (N * t_samp) + Td) * d_past) +
-              ((Kp * Td * N) / ((N * t_samp) + Td) * (error - error_past));
+    i = i_past + ((Kp / Ti) * error_past * t_samp) ;
+    d = Td * d_past / ((N * t_samp) + Td) +
+              (((Kp * Td * N) / ((N * t_samp) + Td)) * error) - error_past;
     float v = p + i + d;
-    //control_val = satblk(v);
-    //anti_windup = control_val - v;
-    DtoA(VtoD(v));
+    control_val = satblk(v);
+    DtoA(VtoD(control_val));
     theta[k] = motor_pos;
     error_past = error;
     i_past =  i;
